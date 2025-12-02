@@ -430,6 +430,122 @@ p {
   padding: 0.8rem 1rem 1rem;
   color: var(--color-muted);
 }
+/* RESEARCH SECTION LAYOUT */
+.research-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 4rem 7vw;
+}
+
+.research-row.reverse {
+  grid-template-columns: 1fr 1.1fr;
+}
+
+.research-row.reverse .research-image {
+  order: 2;
+}
+.research-row.reverse .research-text {
+  order: 1;
+}
+
+.research-image img {
+  width: 100%;
+  max-width: 650px;
+  border-radius: 22px;
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.15);
+}
+
+.research-text h3 {
+  margin-bottom: 1rem;
+  font-size: 1.7rem;
+}
+
+.research-text p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.research-text ul {
+  margin: 1rem 0 1.2rem;
+  padding-left: 1.2rem;
+}
+
+.research-text li {
+  margin-bottom: 0.45rem;
+}
+
+/* RESPONSIVE BEHAVIOR */
+@media (max-width: 900px) {
+  .research-row,
+  .research-row.reverse {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 4vw;
+  }
+
+  .research-row.reverse .research-image,
+  .research-row.reverse .research-text {
+    order: unset;
+  }
+
+  .research-image img {
+    max-width: 100%;
+  }
+}
+/* PROCESS ROW LAYOUT */
+.process-row {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 3.5rem;
+  align-items: center;
+  margin: 4.5rem 0;
+}
+
+.process-row.reverse {
+  grid-template-columns: 1fr 1.1fr;
+}
+
+.process-row.reverse .process-image {
+  order: 2;
+}
+.process-row.reverse .process-text {
+  order: 1;
+}
+
+.process-image img {
+  width: 100%;
+  max-width: 850px; /* MUCH larger images */
+  border-radius: 26px;
+  box-shadow: 0 28px 60px rgba(0,0,0,0.18);
+}
+
+.process-text h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.process-text p {
+  margin-bottom: 1.1rem;
+  line-height: 1.6;
+}
+
+/* RESPONSIVE */
+@media (max-width: 980px) {
+  .process-row,
+  .process-row.reverse {
+    grid-template-columns: 1fr;
+  }
+
+  .process-row.reverse .process-image,
+  .process-row.reverse .process-text {
+    order: unset;
+  }
+
+  .process-image img {
+    max-width: 100%;
+  }
+}
 
 /* deliverables */
 

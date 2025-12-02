@@ -28,6 +28,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Prevent horizontal scrolling (FIX) */
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: "Alegreya Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -36,6 +41,13 @@ body {
               var(--color-bg);
   color: var(--color-text);
   line-height: 1.6;
+}
+
+/* Stop images from causing overflow (FIX) */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* Typography defaults */
@@ -199,77 +211,102 @@ p {
 }
 
 /* ---------------
-   HERO
+   HERO — IMPROVED
 ---------------- */
 
 .hero {
   min-height: 100vh;
-  padding: 120px 7vw 80px;
+  padding: 140px 10vw 80px; /* gives cleaner breathing room */
   display: flex;
   align-items: center;
 }
 
 .hero-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); /* give more space to the phones */
-  gap: 4vw;
+  grid-template-columns: 1.1fr 1fr; /* better balance */
+  gap: 5vw;
+  align-items: center;
+}
+
+.hero-text h1 {
+  font-size: clamp(2.8rem, 3.6vw + 1.4rem, 4rem);
+  font-weight: 700;
+  line-height: 1.08;
+  margin-bottom: 1rem;
 }
 
 .hero-text .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.82rem;
+  letter-spacing: 0.2em;
+  font-size: 0.9rem;
   color: var(--color-muted);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
 }
 
 .hero-subtitle {
-  max-width: 32rem;
+  max-width: 40rem;
+  font-size: 1.15rem;
+  line-height: 1.55;
+  margin-bottom: 1.3rem;
 }
 
 .hero-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1.1rem;
+  gap: 0.8rem;
 }
 
 .tag {
-  padding: 6px 12px;
+  padding: 7px 14px;
   border-radius: var(--radius-pill);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.03);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.05);
 }
 
+/* Images */
 .hero-image {
   position: relative;
   display: flex;
   justify-content: center;
-}
-
-.hero-image::before {
-  content: "";
-  position: absolute;
-  inset: 14% 6%;
-  background: radial-gradient(circle at top, #ffe3b0, transparent 65%),
-              radial-gradient(circle at bottom, #ffd1f1, transparent 70%);
-  filter: blur(4px);
-  opacity: 0.9;
-  z-index: -1;
+  align-items: center;
 }
 
 .hero-image img {
-  width: 120%;      /* Increase overall size */
-  max-width: none;  /* Allow it to exceed container */
-  transform: scale(1.15); /* Additional scaling */
-  margin-left: -5%;       /* Re-center the image */
-  height: auto;
-  display: block;
-  border-radius: 40px;
-
+  width: 100%;
+  max-width: 540px; /* aligns with phone mockups visually */
+  border-radius: 32px;
+  transform: none; /* removes odd stretch */
+  margin-left: 0;
   animation: float 5.5s ease-in-out infinite;
+}
+
+/* Light radial glow behind phones */
+.hero-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #ffe7d1 0%, transparent 70%);
+  filter: blur(30px);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+/* Mobile hero layout */
+@media (max-width: 960px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .hero-image {
+    margin-top: 1rem;
+  }
+
+  .hero-image img {
+    max-width: 420px;
+  }
 }
 
 /* ---------------
@@ -493,59 +530,7 @@ p {
     max-width: 100%;
   }
 }
-/* PROCESS ROW LAYOUT */
-.process-row {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
-  margin: 4.5rem 0;
-}
 
-.process-row.reverse {
-  grid-template-columns: 1fr 1.1fr;
-}
-
-.process-row.reverse .process-image {
-  order: 2;
-}
-.process-row.reverse .process-text {
-  order: 1;
-}
-
-.process-image img {
-  width: 100%;
-  max-width: 850px; /* MUCH larger images */
-  border-radius: 26px;
-  box-shadow: 0 28px 60px rgba(0,0,0,0.18);
-}
-
-.process-text h3 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.process-text p {
-  margin-bottom: 1.1rem;
-  line-height: 1.6;
-}
-
-/* RESPONSIVE */
-@media (max-width: 980px) {
-  .process-row,
-  .process-row.reverse {
-    grid-template-columns: 1fr;
-  }
-
-  .process-row.reverse .process-image,
-  .process-row.reverse .process-text {
-    order: unset;
-  }
-
-  .process-image img {
-    max-width: 100%;
-  }
-}
 
 /* deliverables */
 
@@ -572,6 +557,59 @@ p {
   border-radius: 18px;
   margin-top: 0.4rem;
 }
+/* ================================ */
+/* LADDER MOCKUP GALLERY */
+/* ================================ */
+
+.mockup-ladder {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem; /* spacing between rows */
+}
+
+.ladder-row {
+  width: 100%;
+  display: flex;
+}
+
+.ladder-row img {
+  width: 85%;                 /* Larger visuals */
+  max-width: 1100px;          /* Ensures they scale big on desktop */
+  border-radius: 28px;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.18);
+}
+
+/* Alternating “ladder” alignment */
+.ladder-row.left {
+  justify-content: flex-start;
+}
+
+.ladder-row.right {
+  justify-content: flex-end;
+}
+
+/* Extra spacing before Figma embed */
+.figma-spacer {
+  height: 6rem;  /* adjust larger if needed */
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .ladder-row img {
+    width: 100%;
+  }
+
+  .ladder-row.left,
+  .ladder-row.right {
+    justify-content: center;
+  }
+
+  .figma-spacer {
+    height: 3rem;
+  }
+}
+
 
 /* ---------------
    FOOTER
